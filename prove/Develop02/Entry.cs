@@ -1,10 +1,10 @@
 public class Entry
 {
     // attributes
-    string _date = "";
-    string _response = "";
-    string _prompt = "";
-    string _edits = "";
+    public string _date = "";
+    public string _response = "";
+    public string _prompt = "";
+    public string _edits = "";
 
     // behaviors
     public void DisplayEntry()

@@ -6,7 +6,8 @@ public class Journal
     // behaviors
     public void AddEntry()
     {
-        
+        Entry newEntry = new Entry();
+        Entry._date = 
     }
 
     public void DisplayEntries()

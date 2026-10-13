@@ -6,7 +6,7 @@ public class Entry
     public DateTime _date;
     public string _response = "";
     public string _prompt = "";
-    public DateTime _lastEdit;
+    public DateTime? _lastEdit;
 
     // behaviors
     public Entry(string prompt, string response)
@@ -14,7 +14,7 @@ public class Entry
         _date = DateTime.Now;
         _prompt = prompt;
         _response = response;
-        _lastEdit = DateTime.Now;
+        _lastEdit = null;
     }
 
     public void DisplayEntry()
@@ -22,9 +22,9 @@ public class Entry
         Console.WriteLine($"Date created: {_date:yyyy-MM-dd HH:mm:ss}");   
         Console.WriteLine($"Prompt: {_prompt}");   
         Console.WriteLine($"Response: {_response}");   
-        if (_lastEdit != _date)
+        if (_lastEdit.HasValue)
         {
-            Console.WriteLine($"Date last edited: {_lastEdit}");  
+            Console.WriteLine($"Date last edited: {_lastEdit.Value:yyyy-MM-dd HH:mm:ss}");  
         } 
     }
 

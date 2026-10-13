@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 public class Journal
 {
@@ -50,13 +52,62 @@ public class Journal
         }
     }
 
-    public void SaveJournal()
+    public void SaveJournal(string filename)
     {
-        
-    }
+        using StreamWriter writer = new StreamWriter(filename);
 
-    public void LoadJournal()
+        writer.WriteLine("Date^Prompt^Response^LastEdit");
+
+        foreach (Entry entry in _entries)
+        {
+            string lastEdit = "";
+
+            if (entry._lastEdit.HasValue)
+            {
+                lastEdit = entry._lastEdit.Value.ToString();
+            }
+
+            writer.WriteLine(
+                $"{entry._date}^{entry._prompt}^{entry._response}^{lastEdit}");
+        }
+
+        Console.WriteLine("Journal saved.");
+    }
+    public void LoadJournal(string filename)
     {
-        
+        if (!File.Exists(filename))
+        {
+            Console.WriteLine("File not found.");
+            return;
+        }
+
+        _entries.Clear();
+
+        string[] lines = File.ReadAllLines(filename);
+
+        for (int i = 1; i < lines.Length; i++)
+        {
+            string[] parts = lines[i].Split('^');
+
+            string prompt = parts[1];
+            string response = parts[2];
+
+            Entry entry = new Entry(prompt, response);
+
+            entry._date = DateTime.Parse(parts[0]);
+
+            if (parts[3] != "")
+            {
+                entry._lastEdit = DateTime.Parse(parts[3]);
+            }
+            else
+            {
+                entry._lastEdit = null;
+            }
+
+            _entries.Add(entry);
+        }
+
+        Console.WriteLine("Journal loaded.");
     }
 }

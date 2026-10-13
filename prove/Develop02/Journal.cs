@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 public class Journal
@@ -48,7 +47,7 @@ public class Journal
         }
         else
         {
-            _entries.RemoveAt(intdelete-1);
+            _entries.RemoveAt(intdelete - 1);
         }
     }
 
